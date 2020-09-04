@@ -48,7 +48,8 @@ export default {
 }
 </script>
 
-<style scoped lang="less">
+<style lang="less">
+	@import "./../../assets/css/index.less";
 	.app_layout{
 		height: 100%;
 		#app_container{
