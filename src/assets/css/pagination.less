@@ -1,0 +1,165 @@
+//页码宽度
+@pageWidth: 28px;
+
+//页码高度
+@pageHeight: 28px;
+
+//页码边框颜色
+@pageBorderC: #dbe1e8;
+
+//页码字体颜色
+@pangeFontColor: #7e8e9f;
+
+// 选中的颜色
+@activeColor: #1565C0;
+
+//页码边框圆角
+@pageBorderRadius: 2px;
+
+//页码字体大小
+@pageFontSize: 14px;
+.pagination {
+  display: flex;
+  padding: 10px 0;
+  .el-pagination {
+    padding: 0;
+    .el-pagination__jump {
+      margin-left: 0;
+    }
+    .el-pagination__total {
+      margin: 0 5px;
+      color: #aaacaf;
+    }
+    .el-pagination__sizes {
+      margin: 0;
+
+      .el-input .el-input__inner {
+        padding-left: 0;
+      }
+    }
+    &:hover {
+      border-color: #1565C0;
+    }
+
+    .btn-next, .btn-prev {
+      font-size: @pageFontSize;
+      background-color: #fff !important;
+      border: 1px solid @pageBorderC;
+      border-radius: @pageBorderRadius;
+      //margin: 0;
+    }
+    .btn-prev{
+      margin-left: 0;
+    }
+
+    .page_number {
+      color: #666;
+      width: 28px;
+      font-size: @pageFontSize - 2 !important;
+      font-weight: normal;
+
+      .page_NO {
+        font-weight: normal;
+        color: #1565C0
+      }
+    }
+  }
+
+  .el-pagination.is-background {
+    .el-pager li, .btn-prev, .btn-next {
+      min-width: 28px;
+    }
+  }
+
+  .el-pagination .el-select .el-input {
+    width: 80px;
+    margin: 0;
+
+    .el-select__caret {
+      color: #aaacaf !important;
+    }
+  }
+
+  .el-pagination.is-background .el-pager li {
+    width: @pageWidth;
+    height: @pageHeight;
+    background-color: transparent;
+    border: 1px solid @pageBorderC;
+    color: @pangeFontColor;
+    font-size: @pageFontSize;
+    font-weight: normal;
+    margin: 0 5px 0 0;
+  }
+
+  .el-pagination.is-background .el-pager li:last-child {
+    margin: 0;
+  }
+  .el-pagination.is-background .el-pager li:not(.disabled).active{
+    background-color: #1565C0;
+  }
+
+  .page_jump {
+    display: flex;
+    align-items: flex-start;
+    height: 28px;
+    line-height: 28px;
+    color: #aaacaf;
+    font-size: @pageFontSize - 2;
+
+    .el-input-number--mini {
+      width: 60px;
+      margin: 0 5px;
+
+      .el-input-number__increase, .el-input-number__decrease {
+        width: 18px;
+        background-color: transparent;
+      }
+    }
+
+    .el-input.el-input--mini {
+      input.el-input__inner {
+        width: 60px;
+        padding-right: 25px;
+        padding-left: 5px;
+        text-align: center;
+        cursor: pointer;
+      }
+
+      input.el-input__inner:hover {
+        border-color: #1565C0;
+      }
+    }
+
+    .el-input {
+      width: auto;
+    }
+  }
+
+  .el-pagination .el-select .el-input .el-input__inner {
+    padding-right: 15px !important;
+  }
+
+  .el-input__inner {
+    box-sizing: border-box;
+    border: 1px solid @pageBorderC;
+    font-size: @pageFontSize - 2;
+    padding-right: @pageFontSize + 1;
+  }
+
+  .el-button--mini {
+    color: @pangeFontColor;
+    margin-left: 10px;
+    padding: 0 7px;
+    height: 28px;
+    line-height: 28px;
+    box-sizing: border-box;
+    border: 1px solid @pageBorderC;
+    border-radius: @pageBorderRadius;
+  }
+
+  button.el-button.el-button--default.el-button--mini:hover {
+    border-color: #1565C0;
+    color: #1565C0;
+    background: none;
+  }
+}

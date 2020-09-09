@@ -12,7 +12,7 @@
 					<!--<el-header height="40px">-->
 						<!--<TabsBar ref="tabsBar"></TabsBar>-->
 					<!--</el-header>-->
-					<el-main>
+					<el-main class="scroll_box">
 						<app-main ref="appMain"  class="app_main"></app-main>
 					</el-main>
 				</el-container>
@@ -56,7 +56,7 @@ export default {
 			height: 100%;
 		}
 		.el-header{
-			background-color: rgba(96, 98, 102, 1);
+			background-color: #282b33;
 		}
 		.bottom_container{
 			height: calc(100% - 50px);
@@ -67,12 +67,7 @@ export default {
 			}
 			.main_container{
 				.el-main{
-					background-color: #E4E7ED;
-				}
-				.app_main{
-					height: 100%;
-					box-sizing: border-box;
-					background-color: #fff;
+					background-color: #eef3ff!important
 				}
 			}
 		}

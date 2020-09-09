@@ -4,26 +4,39 @@
 			<router-link :to="{path: 'overview'}">总览</router-link>
 		</div>
 		<div class="side_bar_item">
-			<router-link :to="{path: 'developmentEnvList'}">开发环境</router-link>
+			<router-link :to="{path: 'dataManageList'}" :class="{'router-link-active': getClass('dataManage')}">数据管理</router-link>
 		</div>
 		<div class="side_bar_item">
-			<router-link to="/algorithmManageList">算法管理</router-link>
+			<router-link :to="{path: 'developmentEnvList'}" :class="{'router-link-active': getClass('developmentEnv')}">开发环境</router-link>
 		</div>
 		<div class="side_bar_item">
-			<router-link to="/trainingManageList">训练管理</router-link>
+			<router-link to="/algorithmManageList" :class="{'router-link-active': getClass('algorithmManage')}">算法管理</router-link>
 		</div>
 		<div class="side_bar_item">
-			<router-link to="/modelManageList">模型管理</router-link>
+			<router-link to="/trainingManageList" :class="{'router-link-active': getClass('trainingManage')}">训练管理</router-link>
 		</div>
 		<div class="side_bar_item">
-			<router-link to="/deploymentOnlineList">部署上线</router-link>
+			<router-link to="/modelManageList" :class="{'router-link-active': getClass('modelManage')}">模型管理</router-link>
+		</div>
+		<div class="side_bar_item">
+			<router-link to="/deploymentOnlineList" :class="{'router-link-active': getClass('deploymentOnline')}">部署上线</router-link>
 		</div>
 	</div>
 </template>
 
 <script>
 export default {
-	name: 'SideBar'
+	name: 'SideBar',
+  computed: {
+    currentRouteItem() {
+      return this.$route.meta.subMenu || '';
+    }
+  },
+	methods: {
+    getClass(subItem) {
+      return subItem === this.currentRouteItem;
+    }
+	}
 }
 </script>
 

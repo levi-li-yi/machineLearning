@@ -23,6 +23,8 @@ export default {
 
 <style scoped lang="less">
 	.app_main{
-		height: 100%;
+		min-height: 100%;
+		box-sizing: border-box;
+		background-color: #fff;
 	}
 </style>

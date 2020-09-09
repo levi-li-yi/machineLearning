@@ -4,7 +4,7 @@
 			<slot></slot>
 		</div>
 		<div class="stable_panel">
-			<el-button class="refresh_btn">
+			<el-button class="refresh_btn" @click="refresh">
 				<i class="iconfont icon-shuaxin"></i>
 			</el-button>
 		</div>
@@ -13,7 +13,12 @@
 
 <script>
 export default {
-	name: 'TableCompose'
+	name: 'PageCompose',
+	methods: {
+    refresh() {
+      this.$emit('refresh')
+		}
+	}
 }
 </script>
 

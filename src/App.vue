@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <router-view v-if="isLoaded"></router-view>
   </div>
 </template>
 
@@ -8,6 +8,29 @@
 
 export default {
   name: 'App',
+  data() {
+    return {
+      isLoaded: false,
+    }
+  },
+  mounted() {
+    this.getDict();
+  },
+  methods: {
+    // 获取字典集
+    getDict() {
+      const postData = {
+        method: 'get',
+        url: `/dictionary/dict/all`,
+      };
+      this.$http(postData).then(res => {
+        const dict = res.data || {};
+        this.$store.commit('SetDict', dict);
+      }).finally(() => {
+        this.isLoaded = true;
+      })
+    }
+  }
 }
 </script>
 
@@ -28,7 +51,7 @@ export default {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
-    min-width: 1920px;
+    min-width: 1200px;
     height: 100%;
   }
 </style>
