@@ -50,6 +50,7 @@ export default {
 			width: 100px;
 		}
 		.el-form-item__content{
+			color: #333;
 			flex: 1;
 			overflow: hidden;
 			white-space: nowrap;

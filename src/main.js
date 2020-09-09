@@ -12,6 +12,7 @@ import store from './store';
 import { dateConfig } from './utils/dateConfig';
 import http from './utils/http';
 import openConfirm from './utils/openConfirm';
+import tipMessage from './utils/tipMessage';
 
 import './mock/mock';
 
@@ -24,6 +25,7 @@ Vue.prototype.tableMaxHeight = '550px';
 Vue.prototype.$dateConfig = dateConfig;
 Vue.prototype.$http = http;
 Vue.prototype.$openConfirm = openConfirm;
+Vue.prototype.$tipMessage = tipMessage;
 
 new Vue({
   router,

@@ -9,7 +9,7 @@ const tableColumns = [
       {label: '规格:', props: 'createDate'},
       {label: '存储配置:', props: 'description'},
       {label: '存储空间:', props: 'currentVersionId'},
-      {label: '最后操作时间:', props: 'currentVersionId'},
+      {label: '最后操作时间:', props: 'updateDate'},
     ]
   },
   {
@@ -18,9 +18,9 @@ const tableColumns = [
     colConfig: { minWidth: 130, align: 'left', sortable: false}
   },
   {
-    prop: 'category',
+    prop: 'status',
     label: '状态',
-    colConfig: { minWidth: 120, align: 'left', sortable: false, comp: 'MLDatasetCategory'}
+    colConfig: { minWidth: 120, align: 'left', sortable: false, comp: 'MLTraningStatus'}
   },
   {
     prop: 'createDate',
@@ -38,7 +38,7 @@ const tableColumns = [
     colConfig: { minWidth: 120, align: 'left', sortable: false}
   },
   {
-    prop: 'createDate',
+    prop: 'description',
     label: '描述',
     colConfig: { minWidth: 120, align: 'left', sortable: false}
   },

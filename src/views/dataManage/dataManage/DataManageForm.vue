@@ -19,7 +19,7 @@
 						:autosize="{ minRows: 4, maxRows: 8}"
 						maxLength="255">
 					</el-input>
-					<p class="textarea_length">0/255</p>
+					<p class="textarea_length">{{ruleForm.description.length}}/255</p>
 				</el-form-item>
 				<el-form-item label="应用类型:" prop="category">
 					<el-select
@@ -69,7 +69,7 @@ export default {
         description: '',
         category: '',
         storagePath: '',
-        sourcePath: ''
+        sourcePath: '',
 			},
       rules: {
         name: [
@@ -113,6 +113,7 @@ export default {
 			};
       this.$http(postData).then(() => {
         this.$router.push('/DataManageList');
+        this.$tipMessage('success', '保存成功');
       }).finally(() => {
         this.isLoading = false;
 			});
