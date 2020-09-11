@@ -1,14 +1,15 @@
 const tableColumns = [
   {
     type: 'expand',
+    expandType: 'form',
     noSearch: true,
     expandColumns: [
       {label: 'ID:', props: 'id'},
       {label: '名称:', props: 'name'},
-      {label: '工作环境:', props: 'category'},
-      {label: '规格:', props: 'createDate'},
-      {label: '存储配置:', props: 'description'},
-      {label: '存储空间:', props: 'currentVersionId'},
+      {label: '工作环境:', props: 'environment'},
+      {label: '规格:', props: 'spec'},
+      {label: '存储配置:', props: '123'},
+      {label: '存储空间:', props: 'outputPath'},
       {label: '最后操作时间:', props: 'updateDate'},
     ]
   },
@@ -23,12 +24,12 @@ const tableColumns = [
     colConfig: { minWidth: 120, align: 'left', sortable: false, comp: 'MLTraningStatus'}
   },
   {
-    prop: 'createDate',
+    prop: 'versionCount',
     label: '版本数量',
     colConfig: { minWidth: 120, align: 'left', sortable: false}
   },
   {
-    prop: 'createDate',
+    prop: 'itemDiff',
     label: '运行时长',
     colConfig: { minWidth: 120, align: 'left', sortable: false}
   },

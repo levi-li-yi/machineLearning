@@ -30,42 +30,42 @@
 				<!--分页组件-->
 				<common-pagination
 					@updateData="init"
-					:currentPage="searchForm.pageNumber"
+					:currentPage="listData.pageNumber"
 					:total="totalCount || 0"
-					:pageSize="searchForm.pageSize">
+					:pageSize="listData.pageSize">
 				</common-pagination>
 			</div>
 		</div>
-		<div v-if="activeName === 'second'">
-			<page-compose @refresh="init">
-				<div class="compose_btn"></div>
-				<!--查询组件-->
-				<search-comps
-					ref="searchComps"
-					:searchList="searchList"
-					:searchResult="searchResult"
-					:searchSeniorShow="false"
-					v-bind="$attrs"
-					@searchInfo="searchInfo">
-				</search-comps>
-			</page-compose>
-			<div class="table_container">
-				<el-table
-					:data="tableData"
-					border
-					style="width: 100%">
-					<common-column v-for="(item, index) in tableColumns" :column="item" :key="index">
-					</common-column>
-				</el-table>
-				<!--分页组件-->
-				<common-pagination
-					@updateData="init"
-					:currentPage="searchForm.pageNumber"
-					:total="totalCount || 0"
-					:pageSize="searchForm.pageSize">
-				</common-pagination>
-			</div>
-		</div>
+		<!--<div v-if="activeName === 'second'">-->
+			<!--<page-compose @refresh="init">-->
+				<!--<div class="compose_btn"></div>-->
+				<!--&lt;!&ndash;查询组件&ndash;&gt;-->
+				<!--<search-comps-->
+					<!--ref="searchComps"-->
+					<!--:searchList="searchList"-->
+					<!--:searchResult="searchResult"-->
+					<!--:searchSeniorShow="false"-->
+					<!--v-bind="$attrs"-->
+					<!--@searchInfo="searchInfo">-->
+				<!--</search-comps>-->
+			<!--</page-compose>-->
+			<!--<div class="table_container">-->
+				<!--<el-table-->
+					<!--:data="tableData"-->
+					<!--border-->
+					<!--style="width: 100%">-->
+					<!--<common-column v-for="(item, index) in tableColumns" :column="item" :key="index">-->
+					<!--</common-column>-->
+				<!--</el-table>-->
+				<!--&lt;!&ndash;分页组件&ndash;&gt;-->
+				<!--<common-pagination-->
+					<!--@updateData="init"-->
+					<!--:currentPage="searchForm.pageNumber"-->
+					<!--:total="totalCount || 0"-->
+					<!--:pageSize="searchForm.pageSize">-->
+				<!--</common-pagination>-->
+			<!--</div>-->
+		<!--</div>-->
 	</div>
 </template>
 
@@ -82,23 +82,12 @@ export default {
       searchResult: NaN,
       searchForm: {},
       totalCount: 20,
-      tableData: [{
-        id: '12987122',
-        name: '好滋好味鸡蛋仔',
-        category: '江浙小吃、小吃零食',
-        desc: '荷兰优质淡奶，奶香浓而不腻',
-        address: '上海市普陀区真北路',
-        shop: '王小虎夫妻店',
-        shopId: '10333',
-      }, {
-        id: '12987123',
-        name: '好滋好味鸡蛋仔',
-        category: '江浙小吃、小吃零食',
-        desc: '荷兰优质淡奶，奶香浓而不腻',
-        address: '上海市普陀区真北路',
-        shop: '王小虎夫妻店',
-        shopId: '10333'
-      }]
+      listData: {}
+    }
+  },
+  computed: {
+    tableData() {
+      return this.listData.list || [];
     }
   },
   mounted() {
@@ -107,13 +96,26 @@ export default {
   methods: {
     searchInfo() {
     },
-    init() {
-      this.$http({url: 'http:localhost:8080/mock/data/list', method: 'get'}).then(res => {
-        console.log(res);
+    init(page) {
+      const postData = {
+        method: 'post',
+        url: '/umodelversion/list',
+        data: {
+          pageNo: page ? page.pageNo : 1,
+          pageSize: page ? page.pageSize : this.listData.pageSize || 10,
+          query: {
+            ...this.searchData
+          }
+        },
+      };
+      this.$http(postData).then(res => {
+        const result = res.data;
+        this.listData = result || {};
+        this.totalCount = this.listData.count || 0;
       });
     },
     createHandler() {
-      this.$router.push('/modelManageForm')
+      this.$router.push('/dataManageForm')
     }
   }
 }

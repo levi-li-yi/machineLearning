@@ -1,6 +1,7 @@
 const tableColumns = [
   {
     type: 'expand',
+    expandType: 'form',
     noSearch: true,
     expandColumns: [
       {label: 'ID:', props: 'id'},

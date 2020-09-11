@@ -7,6 +7,13 @@ module.exports = {
         rewritePath: {
           '^/ml': '/'
         }
+      },
+      '/jupyter': {
+        target: 'http://192.168.3.46:31380',
+        changeOrigin: true,
+        rewritePath: {
+          '^/jupyter': '/'
+        }
       }
     }
   }

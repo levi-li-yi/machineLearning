@@ -26,13 +26,24 @@
 					style="width: 100%">
 					<common-column v-for="(item, index) in tableColumns" :column="item" :key="index">
 					</common-column>
+					<el-table-column
+						:resizable="false"
+						label="操作"
+						class-name="operation_btn"
+						width="220">
+						<template>
+							<p class="btn_item">发布算法</p>
+							<p class="btn_item">创建训练作业</p>
+							<p class="btn_item">删除</p>
+						</template>
+					</el-table-column>
 				</el-table>
 				<!--分页组件-->
 				<common-pagination
 					@updateData="init"
-					:currentPage="searchForm.pageNumber"
+					:currentPage="listData.pageNumber"
 					:total="totalCount || 0"
-					:pageSize="searchForm.pageSize">
+					:pageSize="listData.pageSize">
 				</common-pagination>
 			</div>
 		</div>
@@ -80,25 +91,14 @@ export default {
       tableColumns: tableColumns,
       searchList: tableColumns,
       searchResult: NaN,
-      searchForm: {},
-      totalCount: 20,
-      tableData: [{
-        id: '12987122',
-        name: '好滋好味鸡蛋仔',
-        category: '江浙小吃、小吃零食',
-        desc: '荷兰优质淡奶，奶香浓而不腻',
-        address: '上海市普陀区真北路',
-        shop: '王小虎夫妻店',
-        shopId: '10333',
-      }, {
-        id: '12987123',
-        name: '好滋好味鸡蛋仔',
-        category: '江浙小吃、小吃零食',
-        desc: '荷兰优质淡奶，奶香浓而不腻',
-        address: '上海市普陀区真北路',
-        shop: '王小虎夫妻店',
-        shopId: '10333'
-      }]
+      searchData: {},
+      totalCount: 0,
+      listData: {},
+    }
+  },
+  computed: {
+    tableData() {
+      return this.listData.list || [];
     }
   },
   mounted() {
@@ -107,9 +107,22 @@ export default {
   methods: {
     searchInfo() {
     },
-    init() {
-      this.$http({url: 'http:localhost:8080/mock/data/list', method: 'get'}).then(res => {
-        console.log(res);
+    init(page) {
+      const postData = {
+        method: 'post',
+        url: '/algorithm/list',
+        data: {
+          pageNo: page ? page.pageNo : 1,
+          pageSize: page ? page.pageSize : this.listData.pageSize || 10,
+          query: {
+            ...this.searchData
+          }
+        },
+      };
+      this.$http(postData).then(res => {
+        const result = res.data;
+        this.listData = result || {};
+        this.totalCount = this.listData.count || 0;
       });
     },
     createHandler() {

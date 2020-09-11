@@ -31,16 +31,6 @@ export default {
 		padding: 10px 22px;
 		display: flex;
 		flex-flow: wrap;
-		position: relative;
-		&:after{
-			display: block;
-			content: '';
-			position: absolute;
-			left: 0;
-			top: 0;
-			height: 100%;
-			border-left: 2px solid #1565C0;
-		}
 		.el-form-item{
 			width: 50%;
 			margin: 0;

@@ -3,21 +3,21 @@
 </template>
 
 <script>
-const field = 'MLDatasetCategory';
+const field = 'MLAlgorithmStatus';
 
 export default {
-	name: 'MLDatasetCategory',
+	name: 'MLAlgorithmStatus'	,
   props: {
     data: Object
   },
-	computed: {
+  computed: {
     dictLabel() {
       const dict = this.$store.state.dictAll[field];
       const dictArr = dict ? dict.labels : [];
-      if (this.data.category) return dictArr.find(item => item.id === this.data.category).label || '';
+      if (this.data.status) return dictArr.find(item => item.id === this.data.status).label || '';
       return '';
     }
-	}
+  }
 }
 </script>
 

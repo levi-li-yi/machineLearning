@@ -17,26 +17,28 @@
     <template  slot-scope="scope">
       <span v-if="column.type !== 'expand'">
         <common-cell-comp
-          v-if="column.type !== 'expand'"
+          v-if="column.type === undefined"
           :column="column"
           :colConfig="colConfig"
           :row="scope.row"
           @jump="$emit('jump', scope)"></common-cell-comp>
       </span>
-      <expand-column-form :itemData="scope" :expandColumns="column.expandColumns" v-if="column.type === 'expand'"></expand-column-form>
+      <!--<expand-column-form :itemData="scope" :expandColumns="column.expandColumns" v-if="column.type === 'expand'"></expand-column-form>-->
+      <expand-column  :itemData="scope" :expandColumns="column.expandColumns" v-if="column.type === 'expand'" :expandType="column.expandType">
+      </expand-column>
     </template>
   </el-table-column>
 </template>
 
 <script>
-import ExpandColumnForm from './ExpandColumnForm';
+import ExpandColumn from './ExpandColumn';
 import CommonCellComp from './CommonCellComp';
 
 export default {
   name: 'CommonColumn',
   components: {
-    ExpandColumnForm,
-    CommonCellComp
+    ExpandColumn,
+    CommonCellComp,
   },
   props: {
     column: {

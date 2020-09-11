@@ -18,9 +18,20 @@ service.interceptors.request.use(config => {
 service.interceptors.response.use(response => {
   const result = response.data;
   // if (response.config.responseType === 'blob') {}
-  if (!result || result.code !== 200) {
+  if ((!result || result.code !== 200) && !Object.prototype.hasOwnProperty.call(result, 'success')) {
     Message({
       message: result.message || '参数错误',
+      type: 'error',
+      duration: 2000,
+      center: true
+    });
+    const err = new Error(result);
+    return Promise.reject(err);
+  }
+  // kubeflow 中的jupyter接口错误提示
+  if (Object.prototype.hasOwnProperty.call(result, 'success') && !result.success) {
+    Message({
+      message: result.log,
       type: 'error',
       duration: 2000,
       center: true
@@ -79,6 +90,9 @@ export default (postData) => {
   }
   if (postData.method.toLocaleLowerCase() === 'post') {
     params.data = postData.data;
+  }
+  if (postData.baseURL === false) {
+    params.baseURL = '';
   }
   return service(params);
 }

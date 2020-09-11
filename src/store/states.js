@@ -1,4 +1,5 @@
 const states = {
-  dictAll: {}
+  dictAll: {},
+  jupyterList: []
 };
 export default states;

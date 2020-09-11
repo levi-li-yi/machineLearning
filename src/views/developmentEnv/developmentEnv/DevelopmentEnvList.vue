@@ -22,13 +22,11 @@
 				<common-column v-for="(item, index) in tableColumns" :column="item" :key="index">
 				</common-column>
 				<el-table-column
-					:resizable="false"
 					label="操作"
-					class-name="operation_btn"
-					width="150">
-					<template>
-						<p class="btn_item">发布数据</p>
-						<p class="btn_item">更多</p>
+					align="center"
+					width="100">
+					<template slot-scope="scope">
+						<el-button class="btn_item word_btn" @click="openJupyter(scope.row.name)">打开</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -56,7 +54,9 @@ export default {
       searchForm: {},
       totalCount: NaN,
       searchData: {},
-      listData: [],
+      listData: {},
+      jupyterList: [],
+			jupyterTimer: null,
     }
   },
   computed: {
@@ -65,7 +65,9 @@ export default {
     }
   },
   mounted() {
-    this.init()
+    this.init();
+    this.pollJupyter();
+    this.jupyterList = this.$store.state.jupyterList ? [...this.$store.state.jupyterList] : [];
   },
   methods: {
     searchInfo() {
@@ -88,10 +90,46 @@ export default {
         this.totalCount = this.listData.count || 0;
       });
     },
+		// 获取jupyter列表
+		getJupyterList() {
+      this.$http({
+				url: '/jupyter/api/namespaces/anonymous/notebooks',
+				method: 'get',
+        baseURL: false
+			}).then(res => {
+        const result = res.notebooks || [];
+        this.jupyterList = [...result];
+        this.$store.commit('SetJupyterList', this.jupyterList);
+      });
+		},
+		// 检查jupyter的状态
+		// checkJupyterStatus(row) {
+     //    setInterval(() =>{
+     //      const kubeData = this.jupyterList.find((kube) => kube.name === row.name);
+     //      return !(kubeData && kubeData.status && kubeData.status === 'runing');
+		// 		}, 2000);
+		// },
+		// 轮询jupyterList
+		pollJupyter() {
+      this.jupyterTimer = setInterval(() => {
+        if (!this.listData.list.every((item) => item.kubeStatus && item.kubeStatus === 'runing')) {
+          this.getJupyterList();
+				}
+			}, 1500);
+		},
+		// 新增Notebook
     createHandler() {
-      this.$router.push('/developmentEnvForm')
-    }
-  }
+      this.$router.push('/developmentEnvForm');
+    },
+		// 打开jupyter
+    openJupyter(name) {
+      window.open(`http://192.168.3.46:31380/notebook/anonymous/${name}/tree`);
+		}
+  },
+	beforeDestroy() {
+    clearInterval(this.jupyterTimer);
+    this.jupyterTimer = null;
+	}
 }
 </script>
 

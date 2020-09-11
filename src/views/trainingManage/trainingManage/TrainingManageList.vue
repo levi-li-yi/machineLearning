@@ -61,7 +61,9 @@ export default {
   },
   computed: {
     tableData() {
-      return this.listData.list || [];
+      const list = this.listData.list || [];
+      list.forEach((item) =>item.itemDiff = this.$timeDiff(item.startTime, item.endTime));
+      return list;
     }
   },
   mounted() {
