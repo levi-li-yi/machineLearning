@@ -70,6 +70,7 @@ export default {
 	methods: {
     searchInfo() {
 		},
+		// 获取列表
     init(page) {
       const postData = {
         method: 'post',
@@ -92,8 +93,7 @@ export default {
       this.$router.push('/dataManageForm')
 		},
 		// 单元格点击
-    cellClick(row, column, cell, event) {
-      console.log(row, column, cell, event);
+    cellClick(row, column) {
       if (column.property === 'name') {
         this.$router.push({
 					path: 'dataManageDetail',
