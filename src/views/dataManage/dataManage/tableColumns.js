@@ -15,7 +15,7 @@ const tableColumns = [
   {
     prop: 'name',
     label: '名称',
-    colConfig: { minWidth: 130, align: 'left', sortable: false}
+    colConfig: { minWidth: 130, align: 'left', sortable: false, className: 'jump_item'}
   },
   {
     prop: 'category',

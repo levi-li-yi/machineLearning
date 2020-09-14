@@ -5,6 +5,7 @@ import CommonPagination from './tableComps/CommonPagination';
 import FormBottomBtn from './formComps/FormBottomBtn';
 import FormLine from './formComps/FormLine';
 import FormHeaderNav from './formComps/FormHeaderNav';
+import PageHeaderNav from './common/PageHeaderNav';
 
 const components = {
   install: (Vue) => {
@@ -15,6 +16,7 @@ const components = {
     Vue.component('FormBottomBtn', FormBottomBtn);
     Vue.component('FormLine', FormLine);
     Vue.component('FormHeaderNav', FormHeaderNav);
+    Vue.component('PageHeaderNav', PageHeaderNav);
   }
 };
 

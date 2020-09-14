@@ -22,10 +22,23 @@
 			<div class="table_container">
 				<el-table
 					:data="tableData"
+					:row-key="(row) => row.id"
+					:expand-row-keys="expandKeys"
+					@expand-change="expandChange"
 					border
 					style="width: 100%">
-					<common-column v-for="(item, index) in tableColumns" :column="item" :key="index">
+					<common-column v-for="(item, index) in tableColumns" :column="item" :key="index" :tableBtns="tableBtns" :listData="expandListData" :totalCount="totalCount" @updateData="updateData">
 					</common-column>
+					<el-table-column
+						:resizable="false"
+						label="操作"
+						class-name="operation_btn"
+						width="150">
+						<template>
+							<p class="btn_item">创建新版本</p>
+							<p class="btn_item">删除</p>
+						</template>
+					</el-table-column>
 				</el-table>
 				<!--分页组件-->
 				<common-pagination
@@ -82,13 +95,17 @@ export default {
       searchResult: NaN,
       searchForm: {},
       totalCount: 20,
-      listData: {}
+      listData: {},
+      expandKeys: [],
+			expandListData: {},
+			currentModelId: '',
+      tableBtns: ['部署', '发布模型', '删除']
     }
   },
   computed: {
     tableData() {
       return this.listData.list || [];
-    }
+    },
   },
   mounted() {
     this.init()
@@ -99,7 +116,7 @@ export default {
     init(page) {
       const postData = {
         method: 'post',
-        url: '/umodelversion/list',
+        url: '/umodel/list',
         data: {
           pageNo: page ? page.pageNo : 1,
           pageSize: page ? page.pageSize : this.listData.pageSize || 10,
@@ -116,6 +133,41 @@ export default {
     },
     createHandler() {
       this.$router.push('/dataManageForm')
+    },
+		//
+    expandChange(row, expandedRows) {
+      console.log(row);
+      this.expandKeys = [];
+      if (expandedRows.length) {
+        if (row) {
+          this.expandKeys.push(row.id)
+        }
+        this.currentModelId = row.id;
+        this.getModelList();
+      }
+    },
+		// 获取模型版本列表
+		getModelList(page = {pageNo:1, pageSize: 10}) {
+      const postData = {
+        method: 'post',
+        url: '/umodelversion/list',
+        data: {
+          pageNo: page ? page.pageNo : 1,
+          pageSize: page ? page.pageSize : this.listData.pageSize || 10,
+          query: {
+            modelId: this.currentModelId
+          }
+        },
+      };
+      this.$http(postData).then(res => {
+        const result = res.data;
+        this.expandListData = result || {};
+      }).catch(() => {
+        this.expandListData = {}
+			});
+    },
+    updateData(pageData) {
+      this.getModelList(pageData);
     }
   }
 }

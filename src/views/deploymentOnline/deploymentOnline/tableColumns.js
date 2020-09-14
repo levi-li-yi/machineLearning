@@ -19,18 +19,13 @@ const tableColumns = [
     colConfig: { minWidth: 130, align: 'left', sortable: false}
   },
   {
-    prop: 'category',
+    prop: 'status',
     label: '状态',
-    colConfig: { minWidth: 120, align: 'left', sortable: false, comp: 'MLDatasetCategory'}
+    colConfig: { minWidth: 120, align: 'left', sortable: false, comp: 'MLDeploymentStatus'}
   },
   {
-    prop: 'createDate',
-    label: '版本数量',
-    colConfig: { minWidth: 120, align: 'left', sortable: false}
-  },
-  {
-    prop: 'createDate',
-    label: '运行时长',
+    prop: 'callCount',
+    label: '调用失败次数/总次数',
     colConfig: { minWidth: 120, align: 'left', sortable: false}
   },
   {
@@ -39,7 +34,7 @@ const tableColumns = [
     colConfig: { minWidth: 120, align: 'left', sortable: false}
   },
   {
-    prop: 'createDate',
+    prop: 'description',
     label: '描述',
     colConfig: { minWidth: 120, align: 'left', sortable: false}
   },

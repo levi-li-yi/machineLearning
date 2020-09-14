@@ -25,7 +25,7 @@
 				<el-form-item label="选择模型及配置:" prop="radio">
 					<el-radio-group v-model="ruleForm.radio">
 						<el-radio :label="1">我的模型</el-radio>
-						<el-radio :label="2">公共模型</el-radio>
+						<!--<el-radio :label="2">公共模型</el-radio>-->
 					</el-radio-group>
 				</el-form-item>
 				<el-form-item label="元模型来源:" prop="category">

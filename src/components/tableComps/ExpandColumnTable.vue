@@ -9,7 +9,6 @@
 				:searchList="expandColumns"
 				:searchResult="searchResult"
 				:searchSeniorShow="false"
-				v-bind="$attrs"
 				@searchInfo="searchInfo">
 			</search-comps>
 		</page-compose>
@@ -20,12 +19,22 @@
 				style="width: 100%">
 				<common-column v-for="(item, index) in expandColumns" :column="item" :key="index">
 				</common-column>
+				<el-table-column
+					v-if="tableBtns.length"
+					:resizable="false"
+					label="操作"
+					class-name="operation_btn"
+					width="150">
+					<template>
+						<p class="btn_item"  v-for="(item, index) in tableBtns" :key="index">{{item}}</p>
+					</template>
+				</el-table-column>
 			</el-table>
 			<!--分页组件-->
 			<common-pagination
 				@updateData="updateData"
 				:currentPage="listData.pageNo"
-				:total="totalCount || 0"
+				:total="$attrs.totalCount || 0"
 				:pageSize="listData.pageSize">
 			</common-pagination>
 		</div>
@@ -36,29 +45,41 @@
 export default {
 	name: 'ExpandColumnTable',
 	props: {
-    expandColumns: Array
+    expandColumns: Array,
+    listData: {
+      type: Object,
+			defaultProps: {}
+		}
 	},
   data() {
     return {
       searchList: [],
       searchResult: NaN,
       searchForm: {},
-      totalCount: 20,
-      listData: {}
     }
   },
+	mounted() {
+    this.$emit('updateData', 123);
+	},
 	computed: {
     tableData() {
-      return this.listData.list || [];
-		}
+      return Object.keys(this.listData).length ? this.listData.list : [];
+		},
+    tableBtns() {
+      if (this.$attrs.tableBtns && Array.isArray(this.$attrs.tableBtns)) {
+        return this.$attrs.tableBtns;
+      } else {
+        return [];
+      }
+    }
 	},
 	methods: {
     init() {},
     searchInfo() {
       this.$emit('searchInfo');
 		},
-    updateData() {
-      this.$emit('updateData');
+    updateData(pageData) {
+      this.$emit('updateData', pageData);
 		}
 	}
 }

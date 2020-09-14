@@ -4,8 +4,31 @@ const tableColumns = [
     expandType: 'table',
     noSearch: true,
     expandColumns: [
-      {label: '地址:', props: 'address'},
-      {label: '种类:', props: 'category'},
+      {
+        prop: 'version',
+        label: '版本',
+        colConfig: { minWidth: 120, align: 'left', sortable: false}
+      },
+      {
+        prop: 'status',
+        label: '状态',
+        colConfig: { minWidth: 120, align: 'left', sortable: false, comp: 'MLModelStatus'}
+      },
+      {
+        prop: 'size',
+        label: '模型大小',
+        colConfig: { minWidth: 120, align: 'left', sortable: false}
+      },
+      {
+        prop: 'createDate',
+        label: '创建时间',
+        colConfig: { minWidth: 120, align: 'left', sortable: false}
+      },
+      {
+        prop: 'description',
+        label: '描述',
+        colConfig: { minWidth: 120, align: 'left', sortable: false}
+      },
     ]
   },
   {
@@ -14,7 +37,7 @@ const tableColumns = [
     colConfig: { minWidth: 120, align: 'left', sortable: false}
   },
   {
-    prop: 'version',
+    prop: 'latestVersion',
     label: '最新版本',
     colConfig: { minWidth: 120, align: 'left', sortable: false}
   },
@@ -24,9 +47,9 @@ const tableColumns = [
     colConfig: { minWidth: 120, align: 'left', sortable: false}
   },
   {
-    prop: 'name',
+    prop: 'deployCategory',
     label: '部署类型',
-    colConfig: { minWidth: 120, align: 'left', sortable: false}
+    colConfig: { minWidth: 120, align: 'left', sortable: false, comp: 'MLModelDeployCategory'}
   },
   {
     prop: 'createDate',

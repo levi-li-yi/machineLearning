@@ -23,8 +23,7 @@
           :row="scope.row"
           @jump="$emit('jump', scope)"></common-cell-comp>
       </span>
-      <!--<expand-column-form :itemData="scope" :expandColumns="column.expandColumns" v-if="column.type === 'expand'"></expand-column-form>-->
-      <expand-column  :itemData="scope" :expandColumns="column.expandColumns" v-if="column.type === 'expand'" :expandType="column.expandType">
+      <expand-column v-bind="$attrs" v-on="$listeners" :listData="listData"  :itemData="scope" :expandColumns="column.expandColumns" v-if="column.type === 'expand'" :expandType="column.expandType">
       </expand-column>
     </template>
   </el-table-column>
@@ -47,6 +46,7 @@ export default {
         return {};
       }
     },
+    listData: Object
   },
   computed: {
     colConfig() {
@@ -73,7 +73,7 @@ export default {
         return this[formatter];
       }
       return null;
-    }
+    },
   },
 };
 </script>

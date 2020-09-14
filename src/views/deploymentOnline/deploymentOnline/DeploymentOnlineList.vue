@@ -25,10 +25,12 @@
 					:resizable="false"
 					label="操作"
 					class-name="operation_btn"
-					width="150">
+					width="180">
 					<template>
-						<p class="btn_item">发布数据</p>
-						<p class="btn_item">更多</p>
+						<p class="btn_item">修改</p>
+						<p class="btn_item">预测</p>
+						<p class="btn_item">启动</p>
+						<p class="btn_item">删除</p>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -73,7 +75,7 @@ export default {
     init(page) {
       const postData = {
         method: 'post',
-        url: '/training/list',
+        url: '/udeployment/list',
         data: {
           pageNo: page ? page.pageNo : 1,
           pageSize: page ? page.pageSize : this.listData.pageSize || 10,

@@ -17,6 +17,7 @@
 		<div class="table_container">
 			<el-table
 				:data="tableData"
+				@cell-click="cellClick"
 				border
 				style="width: 100%">
 				<common-column v-for="(item, index) in tableColumns" :column="item" :key="index">
@@ -89,7 +90,20 @@ export default {
     },
 		createHandler() {
       this.$router.push('/dataManageForm')
-		}
+		},
+		// 单元格点击
+    cellClick(row, column, cell, event) {
+      console.log(row, column, cell, event);
+      if (column.property === 'name') {
+        this.$router.push({
+					path: 'dataManageDetail',
+          query: {
+            pageTitle: row.name,
+						id: row.id
+          }
+				})
+			}
+    }
 	}
 }
 </script>

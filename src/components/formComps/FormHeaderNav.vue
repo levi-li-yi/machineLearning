@@ -1,7 +1,7 @@
 <template>
 	<div class="form_header_nav">
 		<p>{{`${noCreateField ? '' : '创建'}${pageName}`}}</p>
-		<el-button size="mini" @click="$router.back()">
+		<el-button size="mini" @click="goBack">
 			<i class="el-icon-arrow-left"></i>
 			{{`返回${pageName}列表`}}
 		</el-button>
@@ -20,6 +20,13 @@ export default {
       type: Boolean,
 			default: false
 		}
+  },
+  methods: {
+    goBack() {
+      this.$openConfirm('确定离开？', '提示', 'warning').then(() => {
+        this.$router.back();
+      })
+    }
   }
 }
 </script>
